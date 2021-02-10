@@ -22,5 +22,14 @@ while True:
 
 for p in proudcts:#for loop
     print(p) #印出大清單
-    print(p[0]) ##印出小清單
+    print(p[0]) ##印出小清單第x項
 
+#寫入檔案
+with open('proudcts.csv', 'w') as f: 
+#將proudcts.txt視為f並打開寫入
+#csv為清單檔案格式，可用EXCEL打開
+    for p in proudcts:
+        f.write(p[0] + ',' + p[1] + '\n')# \n = 換行
+        #寫入內容至f(f.write)
+        #不加逗號EXCEL會放同一格
+#走到這邊with會關閉檔案 避免檔案損毀
