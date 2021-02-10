@@ -1,36 +1,51 @@
-#讀取檔案
-import os # os = operating system
 
-proudcts = []
-if os.path.isfile('proudcts.csv'):#檢查檔案是否在現在資料夾內
-    print('有此檔案')
-    with open('proudcts.csv', 'r', encoding='utf-8') as f:
+import os # os = operating system
+# 讀取檔案
+def read_file(filename):
+    proudcts = []
+    with open(filename, 'r', encoding='utf-8') as f:
         for line in f:
-            if '商品,價格' in line:#跳過讀取'商品,價格'字串
-                continue#跳到下一迴
+            if '商品,價格' in line:
+                continue
             name, price = line.strip().split(',')
             proudcts.append([name, price])
-    print(proudcts)#檢查上面有沒有跑對
+    return proudcts # 回傳清單(proudcts = [])
 
-else:
-    print('沒有此檔案...')
+# 讓使用者輸入
+def user_input(proudcts):
+    while True:
+        name = input('請輸入商品名稱： ')
+        price = input('請輸入商品價格： ')
+        proudcts.append([name, price]) 
 
-#讓使用者輸入
-while True:
-    name = input('請輸入商品名稱： ')
-    if name == 'q':
-        break
-    price = input('請輸入商品價格： ')
+        c = input('要繼續輸入？(q:離開)')
+        if c == 'q':
+            break
+    print(proudcts)
+    return proudcts # 回傳參數(proudcts[]) 
 
-    proudcts.append([name, price]) 
-print(proudcts)
-
-#印出所有購買記錄
-for p in proudcts:
-    print(p[0],'的價格是', p[1])
-
-#寫入檔案
-with open('proudcts.csv', 'w', encoding='utf-8') as f: 
-    f.write('商品,價格\n') 
+# 印出所有購買記錄
+def print_products(proudcts):
     for p in proudcts:
-        f.write(p[0] + ',' + p[1] + '\n')
+        print(p[0],'的價格是', p[1])
+
+# 寫入檔案
+def write_file(filename, proudcts):
+    with open(filename, 'w', encoding='utf-8') as f: 
+        f.write('商品,價格\n') 
+        for p in proudcts:
+            f.write(p[0] + ',' + p[1] + '\n')
+
+def main():
+    filename = 'proudcts.csv'
+    if os.path.isfile(filename):# 檢查檔案在不在
+        print('有此檔案')
+        proudcts = read_file(filename)
+    else:
+        print('沒有此檔案...')
+
+    proudcts = user_input(proudcts)
+    print_products(proudcts)# 檢查輸入有沒有對
+    write_file('proudcts.csv', proudcts)
+
+main()
