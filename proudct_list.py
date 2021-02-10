@@ -1,37 +1,30 @@
-
+#讀取檔案
 proudcts = []
-x = 0
+with open('proudcts.csv', 'r', encoding='utf-8') as f:
+    for line in f:
+        if '商品,價格' in line:#過讀取'商品,價格'字串
+            continue#跳到下一迴
+        name, price = line.strip().split(',')
+        proudcts.append([name, price])
+print(proudcts)#檢查上面有沒有coding對
+
+#讓使用者輸入
 while True:
     name = input('請輸入商品名稱： ')
     if name == 'q':
         break
     price = input('請輸入商品價格： ')
-    # p = [] #小清單
-    # p.append('商品：' + name) 
-    # p.append('價格：' + price + '元') 
-    # proudcts.append(p)#建立雙重清單(二維清單)
-    proudcts.append(['商品：' + name, '價格：' + price + '元']) #簡寫
-    x = x + 1
 
-# print(x)
-# print(proudcts)
-# print(proudcts[0]) 
-  #大清單的第一格內容(名稱＋價錢)
-# print(proudcts[0][0])
-  #大清單的第一格裡小清單的第一格內容(價錢)
+    proudcts.append([name, price]) 
+print(proudcts)
 
-#for p in proudcts:#for loop
-#     print(p) #印出大清單
-#     print(p[0]) ##印出小清單第x項
+#印出所有購買記錄
+for p in proudcts:
+    print(p[0],'的價格是', p[1])
 
 #寫入檔案
 with open('proudcts.csv', 'w', encoding='utf-8') as f: 
-#將proudcts.txt視為f並打開寫入
-#csv為清單檔案格式，可用EXCEL打開
-#這邊可能有編碼問題加入"encoding='utf-8'"使編碼正確
-    f.write('商品,價格\n') #寫入欄位 記得要換行
+
+    f.write('商品,價格\n') 
     for p in proudcts:
-        f.write(p[0] + ',' + p[1] + '\n')# \n = 換行
-        #寫入內容至f(f.write)
-        #不加逗號EXCEL會放同一格
-#走到這邊with會關閉檔案 避免檔案損毀
+        f.write(p[0] + ',' + p[1] + '\n')
