@@ -16,18 +16,20 @@ while True:
 # print(x)
 # print(proudcts)
 # print(proudcts[0]) 
-# #大清單的第一格內容(名稱＋價錢)
+  #大清單的第一格內容(名稱＋價錢)
 # print(proudcts[0][0])
-# #大清單的第一格裡小清單的第一格內容(價錢)
+  #大清單的第一格裡小清單的第一格內容(價錢)
 
-for p in proudcts:#for loop
-    print(p) #印出大清單
-    print(p[0]) ##印出小清單第x項
+#for p in proudcts:#for loop
+#     print(p) #印出大清單
+#     print(p[0]) ##印出小清單第x項
 
 #寫入檔案
-with open('proudcts.csv', 'w') as f: 
+with open('proudcts.csv', 'w', encoding='utf-8') as f: 
 #將proudcts.txt視為f並打開寫入
 #csv為清單檔案格式，可用EXCEL打開
+#這邊可能有編碼問題加入"encoding='utf-8'"使編碼正確
+    f.write('商品,價格\n') #寫入欄位 記得要換行
     for p in proudcts:
         f.write(p[0] + ',' + p[1] + '\n')# \n = 換行
         #寫入內容至f(f.write)
